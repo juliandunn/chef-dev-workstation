@@ -1,5 +1,5 @@
 # chef-dev-workstation cookbook
-This cookbook contains recipes to set up a cookbook development environment on Windows or *nix machines.  Many Chef users have requested an easy way to set up their system with all the basics required to get started with cookbook authoring and testing, and that is the purpose of this cookbook.  Feature requests are most welcome!
+This cookbook contains recipes to set up a cookbook development environment on Windows or *nix machines.  Many Chef users have requested an easy way to set up their system with all the basics required to get started with cookbook authoring and testing, and that is the purpose of this cookbook. Feature requests are most welcome!
 
 **Linux recipe includes:**
 * Vim with Syntastic and Rubocop checker
