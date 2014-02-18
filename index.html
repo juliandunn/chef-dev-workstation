@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Chef-dev-workstation by scarolan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Chef-dev-workstation</h1>
+        <h2>Chef cookbook for setting up a test-driven workstation development environment.  Includes things like text editors, Ruby syntax highlighting, and test frameworks like ChefSpec.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/scarolan/chef-dev-workstation/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/scarolan/chef-dev-workstation/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/scarolan/chef-dev-workstation" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="chef-dev-workstation-cookbook" class="anchor" href="#chef-dev-workstation-cookbook"><span class="octicon octicon-link"></span></a>chef-dev-workstation cookbook</h1>
+
+<p>This cookbook contains recipes to set up a cookbook development environment on Windows or *nix machines.  Many Chef users have requested an easy way to set up their system with all the basics required to get started with cookbook authoring and testing, and that is the purpose of this cookbook. Feature requests are most welcome!</p>
+
+<p><strong>Linux recipe:</strong></p>
+
+<ul>
+<li>Vim with Syntastic and Rubocop checker</li>
+<li>Nano with Ruby highlighting</li>
+<li>Emacs</li>
+<li>Berkshelf</li>
+<li>ChefSpec</li>
+<li>Foodcritic</li>
+<li>Rubocop</li>
+<li>Test Kitchen</li>
+<li>knife-essentials, knife-windows, knife-spork, knife-ec2 and knife-vsphere</li>
+</ul><p><strong>Windows recipe:</strong></p>
+
+<ul>
+<li>Downloads and installs the Sublime Text editor (Free trial, will nag you to purchase every 5 saves).</li>
+<li>Downloads and installs the Notepad++ text editor.</li>
+<li>Sets up the following useful powershell aliases:
+
+<ul>
+<li>n (starts up notepad++)</li>
+<li>s (starts up Sublime Text)</li>
+<li>k (runs knife -force)</li>
+<li>chef (runs chef-client -force)</li>
+</ul>
+</li>
+<li>Sets environment variable for Sublime Text, so you can run "knife node edit", etc.</li>
+<li>Enables QuickEdit mode for CMD and Powershell</li>
+<li>Downloads and installs Git</li>
+<li>Berkshelf</li>
+<li>ChefSpec</li>
+<li>Foodcritic</li>
+<li>Rubocop</li>
+<li>Test Kitchen</li>
+<li>knife-essentials, knife-windows, knife-spork, knife-ec2 and knife-vsphere</li>
+</ul><h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<p>This cookbook has been tested on CentOS 6.4 and Windows Server 2008r2. It will probably work on other platforms as well but we make no guarantees! You'll need to install Chef on your workstation before you can use this cookbook.  You can get Chef here:  <a href="http://www.getchef.com">http://www.getchef.com</a></p>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p><strong>Linux:</strong></p>
+
+<p>If you're using Vagrant and Virtualbox, you can simply clone the repo and run "vagrant up".  That will spin up a CentOS 6.4 virtual machine and configure everything for you.  Or if you want to run it on your own VM or workstation, read on...</p>
+
+<p>The setup recipe uses the built-in Omnibus Ruby that ships with Chef, so you don't have to mess around with RubyGems, Bundler or other dependencies. Usage is fairly simple, just run the default recipe! If you don't want to register your workstation on your Chef Server, this one-liner will run the default recipe using chef-solo. Run it from the parent directory where the linux-chef-workstation directory is located. This command must be run as root or with sudo.</p>
+
+<pre><code>echo "cookbook_path ['$(pwd)']" &gt; solo.rb; chef-solo -c solo.rb -o 'linux-chef-workstation'
+</code></pre>
+
+<p>If you want to install this for an existing user, simply change the attributes below to your username. Note that it will overwrite your .bash_profile, .vimrc, and .nanorc. The setup recipe also adds the omnibus Ruby and gems to your user's path, and enables Ruby syntax highlighting for both GNU Nano and Vim. It also installs a basic ~/.rubocop.yml config file.</p>
+
+<p>If you're new to test-driven cookbook development, you can get started right away by using the built-in tests that come bundled with this cookbook. </p>
+
+<p>After running the default recipe to set up your workstation, you can run the following from within the cookbook to execute Rubocop, ChefSpec, and Foodcritic tests:</p>
+
+<pre><code>strainer test
+</code></pre>
+
+<p><strong>Windows:</strong></p>
+
+<p>Usage is fairly simple.  Either clone the git repo or just copy the workstation_setup.rb recipe somewhere onto your Windows machine.  Then you can run the following command to set things up:</p>
+
+<pre><code>chef-apply \.workstation_setup.rb
+</code></pre>
+
+<p>For more information on Strainer, Rubocop, Foodcritic, and ChefSpec, check out these links:</p>
+
+<p>Strainer - Harness for running test suites
+<a href="https://github.com/customink/strainer">https://github.com/customink/strainer</a></p>
+
+<p>Rubocop - Checks your Ruby syntax
+<a href="https://github.com/bbatsov/rubocop">https://github.com/bbatsov/rubocop</a></p>
+
+<p>Foodcritic - Lint tester for Chef cookbooks
+<a href="http://www.foodcritic.io/">http://www.foodcritic.io/</a></p>
+
+<p>ChefSpec - Unit test framework for Chef, based on Rspec
+<a href="https://github.com/sethvargo/chefspec">https://github.com/sethvargo/chefspec</a></p>
+
+<h1>
+<a name="attributes" class="anchor" href="#attributes"><span class="octicon octicon-link"></span></a>Attributes</h1>
+
+<p>There are only two configurable attributes, and they are for the linux-setup recipe. They are the username and MD5 hashed password of your admin user:</p>
+
+<pre><code>default['admin']['username']
+default['admin']['password']
+</code></pre>
+
+<p>The default username is "admin" and the default password is simply "password". Super secure eh? You should probably change this if you are going to use this recipe in the real world.</p>
+
+<h1>
+<a name="recipes" class="anchor" href="#recipes"><span class="octicon octicon-link"></span></a>Recipes</h1>
+
+<p>default.rb - This includes the linux-setup recipe.</p>
+
+<p>linux-setup.rb - Installs the workstation environment on CentOS/RHEL flavored machines.</p>
+
+<p>windows-setup.rb - Installs the workstation environment on Windows machines.</p>
+
+<h1>
+<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h1>
+
+<p>Authors:: Sean Carolan (<a href="mailto:scarolan@getchef.com">scarolan@getchef.com</a>), Alex Vinyar (<a href="mailto:alex@getchef.com">alex@getchef.com</a>)</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
