@@ -62,6 +62,8 @@ Usage is fairly simple.  Either clone the git repo or just copy the workstation_
 chef-apply \.workstation_setup.rb
 ```
 
+**Test Driven Development**
+
 For more information on Strainer, Rubocop, Foodcritic, and ChefSpec, check out these links:
 
 Strainer - Harness for running test suites
