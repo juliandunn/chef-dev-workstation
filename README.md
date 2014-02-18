@@ -1,7 +1,7 @@
 # chef-dev-workstation cookbook
 This cookbook contains recipes to set up a cookbook development environment on Windows or *nix machines.  Many Chef users have requested an easy way to set up their system with all the basics required to get started with cookbook authoring and testing, and that is the purpose of this cookbook. Feature requests are most welcome!
 
-**Linux recipe includes:**
+**Linux recipe:**
 * Vim with Syntastic and Rubocop checker
 * Nano with Ruby highlighting
 * Emacs
@@ -12,10 +12,10 @@ This cookbook contains recipes to set up a cookbook development environment on W
 * Test Kitchen
 * knife-essentials, knife-windows, knife-spork, knife-ec2 and knife-vsphere
 
-**Windows recipe includes:**
-* Download and install the Sublime Text editor (Free trial, will nag you to purchase every 5 saves).
-* Download and install the Notepad++ text editor.
-* Set up the following useful powershell aliases:
+**Windows recipe:**
+* Downloads and installs the Sublime Text editor (Free trial, will nag you to purchase every 5 saves).
+* Downloads and installs the Notepad++ text editor.
+* Sets up the following useful powershell aliases:
   + n (starts up notepad++)
   + s (starts up Sublime Text)
   + k (runs knife -force)
