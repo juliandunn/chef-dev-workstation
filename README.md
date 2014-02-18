@@ -35,6 +35,7 @@ This cookbook has been tested on CentOS 6.4 and Windows Server 2008r2. It will p
 
 # Usage
 **Linux:**
+
 If you're using Vagrant and Virtualbox, you can simply clone the repo and run "vagrant up".  That will spin up a CentOS 6.4 virtual machine and configure everything for you.  Or if you want to run it on your own VM or workstation, read on...
 
 The setup recipe uses the built-in Omnibus Ruby that ships with Chef, so you don't have to mess around with RubyGems, Bundler or other dependencies. Usage is fairly simple, just run the default recipe! If you don't want to register your workstation on your Chef Server, this one-liner will run the default recipe using chef-solo. Run it from the parent directory where the linux-chef-workstation directory is located. This command must be run as root or with sudo.
@@ -54,6 +55,7 @@ strainer test
 ```
 
 **Windows:**
+
 Usage is fairly simple.  Either clone the git repo or just copy the workstation_setup.rb recipe somewhere onto your Windows machine.  Then you can run the following command to set things up:
 
 ```
