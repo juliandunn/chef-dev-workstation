@@ -41,7 +41,7 @@ If you're using Vagrant and Virtualbox, you can simply clone the repo and run "v
 The setup recipe uses the built-in Omnibus Ruby that ships with Chef, so you don't have to mess around with RubyGems, Bundler or other dependencies. Usage is fairly simple, just run the default recipe! If you don't want to register your workstation on your Chef Server, this one-liner will run the default recipe using chef-solo. Run it from the parent directory where the linux-chef-workstation directory is located. This command must be run as root or with sudo.
 
 ```
-echo "cookbook_path ['$(pwd)']" > solo.rb; chef-solo -c solo.rb -o 'linux-chef-workstation'
+echo "cookbook_path ['$(pwd)']" > solo.rb; chef-solo -c solo.rb -o 'chef-dev-workstation'
 ```
 
 If you want to install this for an existing user, simply change the attributes below to your username. Note that it will overwrite your .bash\_profile, .vimrc, and .nanorc. The setup recipe also adds the omnibus Ruby and gems to your user's path, and enables Ruby syntax highlighting for both GNU Nano and Vim. It also installs a basic ~/.rubocop.yml config file.
@@ -59,7 +59,7 @@ strainer test
 Usage is fairly simple.  Either clone the git repo or just copy the workstation_setup.rb recipe somewhere onto your Windows machine.  Then you can run the following command to set things up:
 
 ```
-chef-apply \.workstation_setup.rb
+chef-apply \.windows-setup.rb
 ```
 
 **Test Driven Development:**
