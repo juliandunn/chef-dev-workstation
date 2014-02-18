@@ -56,7 +56,7 @@ strainer test
 
 **Windows:**
 
-Usage is fairly simple.  Either clone the git repo or just copy the workstation_setup.rb recipe somewhere onto your Windows machine.  Then you can run the following command to set things up:
+Usage is fairly simple.  Either clone the git repo or just copy the windows-setup.rb recipe somewhere onto your Windows machine.  Then you can run the following command to set things up:
 
 ```
 chef-apply \.windows-setup.rb
