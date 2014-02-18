@@ -1,4 +1,8 @@
 # encoding: UTF-8
+#
+# Cookbook Name:: chef-dev-workstation
+# Recipe:: windows-setup
+#
 
 # Download Sublime
 remote_file 'c:/chef/Sublime_Text_2.0.2_x64_Setup.exe' do

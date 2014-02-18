@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Cookbook Name:: linux-chef-workstation
+# Cookbook Name:: chef-dev-workstation
 # Recipe:: linux-setup
 #
 adminuser = node['admin']['username']
