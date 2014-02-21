@@ -3,6 +3,7 @@
 # Cookbook Name:: chef-dev-workstation
 # Recipe:: windows-setup
 #
+# general node - we're avoiding using package/windows_package resource to allow this recipe to run via chef-apply so there are no outside dependencies.
 
 # Download Sublime
 remote_file 'c:/chef/Sublime_Text_2.0.2_x64_Setup.exe' do
@@ -26,15 +27,19 @@ batch 'install_notepad++' do
   not_if { ::File.exists?('C:\Program Files (x86)\Notepad++\notepad++.exe') }
 end
 
-powershell_script 'Setup setup powershell Aliases' do
+powershell_script 'change_execution_policy' do
+  code 'Set-ExecutionPolicy RemoteSigned -Force'
+end
+
+powershell_script 'setup_powershell_aliases' do
   code <<-EOH
   $some_variable = Split-Path $PROFILE -Parent
   if(!(Test-Path $some_variable)){New-Item -Type directory $some_variable}
-  'new-alias n "C:\Program Files (x86)\Notepad++\notepad++.exe" -force'    | Out-File $PROFILE
-  'new-alias s "C:\Program Files\Sublime Text 2\sublime_text.exe" -force'  | Out-File $PROFILE -Append
-  'new-alias k knife -force'                                               | out-file $profile -append
-  'new-alias chef chef-client -force'                                      | Out-File $PROFILE -Append
-  'remove-item alias:cd ; set-alias cd pushd -force'                       | Out-File $PROFILE -Append
+  'new-alias n "C:\\Program Files (x86)\\Notepad++\\notepad++.exe" -force'    | Out-File $PROFILE
+  'new-alias s "C:\\Program Files\\Sublime Text 2\\sublime_text.exe" -force'  | Out-File $PROFILE -Append
+  'new-alias k knife -force'                                                  | Out-File $PROFILE -Append
+  'new-alias chef chef-client -force'                                         | Out-File $PROFILE -Append
+  'remove-item alias:cd ; set-alias cd pushd -force'                          | Out-File $PROFILE -Append
   EOH
 end
 
@@ -44,8 +49,15 @@ batch 'set_editor' do
 end
 
 # Enable QuickEdit mode for Powershell and CMD
-powershell_script 'Enable quick edit mode' do
-  code 'set-ItemProperty -Path HKCU:\Console -Name QuickEdit -Value 1'
+powershell_script 'enable_quick_edit_mode' do
+  code <<-EOH
+    $cmd = get-ItemProperty -Path HKCU:\\Console
+    if($cmd.QuickEdit -ne 1){Set-ItemProperty -Path HKCU:\\Console -Name QuickEdit -Value 1}
+    # seems below subkey doesn't exist on 2k8 r2 - keeping as a temp reference
+    # $powershell  = get-ItemProperty -Path HKCU:\\Console\\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe
+    # if($cmd.QuickEdit -ne 1){Set-ItemProperty -Path HKCU:\\Console\\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe -Name QuickEdit -Value 1}
+  EOH
+
 end
 
 # Download Git
@@ -86,6 +98,12 @@ gems.each do |gem|
   gem_package gem
 end
 
+# Optional Gems
+optional_gems = %w{pry}
+optional_gems.each do |gem|
+  gem_package gem
+end
+
 # ## Download Vagrant
 # remote_file 'c:/chef/Vagrant_1.4.3.msi'
 #   source 'https://dl.bintray.com/mitchellh/vagrant/Vagrant_1.4.3.msi'
@@ -100,3 +118,8 @@ end
 # remote_file "c:/chef/0.5.1_windows_amd64.zip" do
 #   source "https://dl.bintray.com/mitchellh/packer/0.5.1_windows_amd64.zip"
 # end
+
+
+## Download and install Open SSL and Visual C++ 2008 Redistributables
+# http://slproweb.com/products/Win32OpenSSL.html
+# http://www.microsoft.com/en-us/download/details.aspx?id=29 // http://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe
