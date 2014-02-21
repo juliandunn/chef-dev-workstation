@@ -18,8 +18,8 @@ This cookbook contains recipes to set up a cookbook development environment on W
 * Sets up the following useful powershell aliases:
   + n (starts up notepad++)
   + s (starts up Sublime Text)
-  + k (runs knife -force)
-  + chef (runs chef-client -force)
+  + k (runs knife)
+  + chef (runs chef-client)
 * Sets environment variable for Sublime Text, so you can run "knife node edit", etc.
 * Enables QuickEdit mode for CMD and Powershell
 * Downloads and installs Git
